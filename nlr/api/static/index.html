@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neuron Local Research</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2310a37f'/><text x='16' y='21' font-size='13' text-anchor='middle' fill='white' font-family='sans-serif'>N</text></svg>">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" id="hl-dark" href="/static/vendor/github-dark.min.css">
+<link rel="stylesheet" id="hl-light" href="/static/vendor/github.min.css" disabled>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="side-top">
+      <div class="brand"><span class="logo">N</span><span>Neuron Local Research</span></div>
+      <button id="btn-novo" class="btn-novo"><span>＋</span> <span data-i18n="novo_chat">Novo chat</span></button>
+      <input id="busca" class="busca" data-i18n-ph="buscar_chats" placeholder="Buscar chats...">
+    </div>
+    <nav id="lista-chats" class="lista"></nav>
+    <div class="side-bottom">
+      <button class="side-link" data-view="projetos">📁 <span data-i18n="projetos">Projetos</span></button>
+      <button class="side-link" data-view="kits">🧰 <span data-i18n="kits">Kits</span></button>
+      <button class="side-link" data-view="memoria">🧠 <span data-i18n="memoria">Memória</span></button>
+      <button class="side-link" data-view="documentos">📚 <span data-i18n="documentos">Documentos</span></button>
+      <button class="side-link" data-view="relatorios">📄 <span data-i18n="relatorios">Relatórios</span></button>
+      <button class="side-link" id="btn-config">⚙️ <span data-i18n="configuracoes">Configurações</span></button>
+    </div>
+  </aside>
+  <div id="overlay"></div>
+  <main id="main">
+    <header id="topo">
+      <button id="btn-menu" class="icone" title="Menu">☰</button>
+      <div class="seletor-modelo">
+        <button id="btn-modelo" class="modelo-btn"><span id="modelo-nome">…</span> <span class="seta">▾</span></button>
+        <div id="menu-modelo" class="dropdown oculto"></div>
+      </div>
+      <div id="modelo-info" class="modelo-info"></div>
+      <button id="btn-projeto-chat" class="chip projeto-chat oculto" title=""></button>
+      <div class="espaco"></div>
+      <button id="btn-tema" class="icone" title="Tema">◐</button>
+      <button id="btn-idioma" class="icone idioma-btn">PT</button>
+    </header>
+
+    <section id="view-chat" class="view">
+      <div id="soltar-imagem" class="soltar-imagem oculto"><div>🖼 <span data-i18n="soltar_imagem">Solte a imagem para analisar</span></div></div>
+      <div id="mensagens" class="mensagens"></div>
+      <div id="boas-vindas" class="boas-vindas">
+        <div class="logo-grande">N</div>
+        <h1 data-i18n="boas_vindas">Como posso ajudar hoje?</h1>
+        <div class="sugestoes">
+          <button class="sugestao" data-i18n="sugestao1"></button>
+          <button class="sugestao" data-i18n="sugestao2"></button>
+          <button class="sugestao" data-i18n="sugestao3"></button>
+          <button class="sugestao" data-i18n="sugestao4"></button>
+        </div>
+      </div>
+      <div class="compositor-wrap">
+        <div id="anexos" class="anexos"></div>
+        <div id="acoes-imagem" class="acoes-imagem oculto">
+          <button data-acao-img="minucioso">🔍 <span data-i18n="acao_minucioso">Analisar minuciosamente</span></button>
+          <button data-acao-img="texto">📝 <span data-i18n="acao_texto">Ler texto</span></button>
+          <button data-acao-img="pixel">🎨 <span data-i18n="acao_pixel">Revisar pixel art</span></button>
+          <button data-acao-img="pesquisar">🌐 <span data-i18n="acao_pesquisar">Pesquisar na internet pela imagem</span></button>
+          <div class="reversa-wrap">
+            <button id="btn-reversa" class="reversa-btn" data-i18n-title="reversa_aviso">↗ <span data-i18n="busca_reversa_manual">Busca reversa manual</span></button>
+            <div id="menu-reversa" class="dropdown para-cima oculto">
+              <button data-reversa="https://lens.google.com/">Google Lens</button>
+              <button data-reversa="https://www.bing.com/visualsearch">Bing Visual Search</button>
+              <button data-reversa="https://tineye.com/">TinEye</button>
+              <div class="sub" data-i18n="reversa_aviso"></div>
+            </div>
+          </div>
+          <div id="visao-status" class="visao-status"></div>
+        </div>
+        <div id="opcoes-profunda" class="opcoes-profunda oculto">
+          <label><span data-i18n="profundidade">Profundidade</span> <select id="prof"><option value="0" data-i18n="auto">auto</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+          <label><span data-i18n="largura">Largura</span> <select id="larg"><option value="0" data-i18n="auto">auto</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
+          <label class="abnt-op"><input type="checkbox" id="prof-abnt"> <span data-i18n="gerar_abnt">.docx ABNT</span></label>
+        </div>
+        <div id="opcoes-projeto" class="opcoes-profunda oculto">
+          <label><input type="checkbox" id="autonomo"> <span data-i18n="autonomo">Modo autônomo</span></label>
+        </div>
+        <div class="compositor">
+          <div class="anexar-wrap">
+            <button id="btn-anexar" class="icone" data-i18n-title="anexar" title="Anexar">📎</button>
+            <div id="menu-anexar" class="dropdown para-cima oculto">
+              <button data-dest="imagem" data-i18n="anexar_imagem">🖼 Imagem (analisar com visão)</button>
+              <button data-dest="chat" data-i18n="anexar_chat">Anexar a esta mensagem</button>
+              <button data-dest="biblioteca" data-i18n="anexar_biblioteca">Adicionar à biblioteca</button>
+            </div>
+            <input type="file" id="arquivo" hidden>
+            <input type="file" id="arquivo-imagem" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/tiff" multiple hidden>
+          </div>
+          <textarea id="entrada" rows="1" data-i18n-ph="placeholder" placeholder="Pergunte qualquer coisa..."></textarea>
+          <select id="modo" class="modo"></select>
+          <button id="btn-enviar" class="enviar" data-i18n-title="enviar" title="Enviar">↑</button>
+        </div>
+        <div class="rodape" id="rodape"></div>
+      </div>
+    </section>
+
+    <section id="view-projetos" class="view oculto pagina"></section>
+    <section id="view-relatorios" class="view oculto pagina"></section>
+    <section id="view-memoria" class="view oculto pagina"></section>
+    <section id="view-kits" class="view oculto pagina"></section>
+    <section id="view-documentos" class="view oculto pagina"></section>
+  </main>
+</div>
+
+<dialog id="dlg-config" class="dialogo">
+  <form method="dialog" id="form-config">
+    <h2 data-i18n="configuracoes">Configurações</h2>
+    <label><span data-i18n="idioma">Idioma</span>
+      <select id="cfg-idioma"><option value="pt">Português (Brasil)</option><option value="en">English</option></select></label>
+    <label><span data-i18n="tema">Tema</span>
+      <select id="cfg-tema"><option value="dark" data-i18n="tema_escuro">Escuro</option><option value="light" data-i18n="tema_claro">Claro</option></select></label>
+    <label><span data-i18n="backend">Servidor de modelos</span>
+      <select id="cfg-backend"><option value="lmstudio">LM Studio</option><option value="ollama">Ollama</option><option value="llamacpp">llama.cpp</option><option value="openai_compat">OpenAI-compatível</option></select></label>
+    <label><span data-i18n="url_backend">Endereço do servidor</span><input id="cfg-url" placeholder="http://localhost:1234/v1"></label>
+    <div class="bench">
+      <h3 data-i18n="benchmark">Benchmark</h3>
+      <button type="button" id="btn-bench" data-i18n="rodar_benchmark">Rodar benchmark rápido</button>
+      <pre id="bench-saida"></pre>
+    </div>
+    <div class="acoes"><span id="cfg-status"></span><button value="cancel" data-i18n="fechar">Fechar</button><button id="btn-salvar-cfg" value="default" class="primario" data-i18n="salvar">Salvar</button></div>
+  </form>
+</dialog>
+
+<script src="/static/vendor/marked.min.js"></script>
+<script src="/static/vendor/purify.min.js"></script>
+<script src="/static/vendor/highlight.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

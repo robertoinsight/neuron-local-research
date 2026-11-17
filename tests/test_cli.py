@@ -7,6 +7,10 @@ R = CliRunner()
 
 
 def rodar(*args, cfgp=None):
+    # Console largo e sem modo legado do Windows: tabelas não quebram o texto no meio.
+    import nlr.cli as _cli
+    from rich.console import Console
+    _cli.console = Console(width=250, legacy_windows=False, force_terminal=False, color_system=None)
     pre = ["--config", str(cfgp)] if cfgp else []
     r = R.invoke(app, pre + [str(a) for a in args])
     assert r.exit_code == 0, r.output + repr(r.exception)

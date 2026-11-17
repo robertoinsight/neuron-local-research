@@ -486,8 +486,9 @@ def mem_listar(escopo: Optional[str] = typer.Option(None, help="global ou projet
 
     m = Memoria(_cfg())
     t = Table()
-    for c in ("id", "escopo", "tipo", "origem", "usos", "texto"):
-        t.add_column(c)
+    for c in ("id", "escopo", "tipo", "origem", "usos"):
+        t.add_column(c, no_wrap=True)
+    t.add_column("texto", min_width=30, overflow="fold")
     for i in m.listar(escopo):
         t.add_row(str(i.id), i.escopo, i.tipo, i.rotulo(), str(i.usos), ("📌 " if i.fixada else "") + escape(i.texto))
     console.print(t)

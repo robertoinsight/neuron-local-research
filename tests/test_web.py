@@ -10,7 +10,10 @@ from tests.conftest import rede
 
 def _ou_pular(fn):
     try:
-        return fn()
+        res = fn()
+        if not res:
+            pytest.skip("buscador não retornou resultados (bloqueio ou limite neste ambiente)")
+        return res
     except AgenteErro as e:
         if "limit" in str(e).lower() or "falhou" in str(e).lower():
             pytest.skip(f"buscador limitou as requisições: {e}")

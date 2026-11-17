@@ -289,7 +289,7 @@ def test_ui_tem_aba_kits_e_i18n():
     from nlr.i18n.ui import EN, PT
 
     base = Path(__file__).parent.parent / "nlr" / "api" / "static"
-    js, html = (base / "app.js").read_text(), (base / "index.html").read_text()
+    js, html = (base / "app.js").read_text(encoding="utf-8"), (base / "index.html").read_text(encoding="utf-8")
     assert 'data-view="kits"' in html and 'id="view-kits"' in html and "prof-abnt" in html
     assert "function abrirKits" in js and js.rstrip().endswith("})();")
     assert js.index("function abrirKits") < js.rindex("})();")

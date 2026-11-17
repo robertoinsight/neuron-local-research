@@ -7,9 +7,9 @@
 ; Instala em %LOCALAPPDATA%\Programs\NLR (sem administrador). Dados do usuário ficam em %APPDATA%\NLR.
 
 #define MyAppName "Neuron Local Research"
-#define MyAppVersion "0.4.0"
+#define MyAppVersion "0.7.0"
 #define MyAppPublisher "Neuron Local Research"
-#define MyAppURL "https://github.com/"
+#define MyAppURL "https://github.com/robertoinsight/neuron-local-research"
 
 [Setup]
 AppId={{7B1C3E52-9E2A-4B8B-9C51-4E1E0A6C0F04}

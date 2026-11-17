@@ -1,0 +1,21 @@
+# Dependências principais (instaladas pelo instalar.ps1 / instalar.sh)
+langgraph>=1.2,<2
+langgraph-checkpoint-sqlite>=3.1,<4
+openai>=1.40
+pydantic>=2.7
+pyyaml>=6.0
+python-dotenv>=1.0
+typer>=0.12
+rich>=13
+ddgs>=9.0
+trafilatura>=2.0
+requests>=2.31
+pypdf>=4.0
+python-docx>=1.1
+openpyxl>=3.1
+numpy>=1.26
+pillow>=10.0
+pytest>=8.0
+# Interface web e MCP
+gradio>=5.30
+mcp>=2.0

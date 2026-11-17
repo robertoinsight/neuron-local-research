@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuron-local-research"
+version = "0.7.0"
+description = "Agente autônomo, persistente e local-first: projetos, pesquisa na biblioteca e na web, memória."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "langgraph>=1.2,<2",
+    "langgraph-checkpoint-sqlite>=3.1,<4",
+    "openai>=1.40",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+    "typer>=0.12",
+    "rich>=13",
+    "ddgs>=9.0",
+    "trafilatura>=2.0",
+    "requests>=2.31",
+    "pypdf>=4.0",
+    "python-docx>=1.1",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "openpyxl>=3.1",
+    "numpy>=1.26",
+    "pillow>=10.0",  # v0.7: visão (anexar/analisar imagens)
+    "pytest>=8.0",
+]
+
+[project.optional-dependencies]
+ui = ["gradio>=5.30"]
+mcp = ["mcp>=2.0"]
+reranker = ["fastembed>=0.5"]
+pixel = ["pillow>=10.0"]
+abnt = ["python-docx>=1.1", "fpdf2>=2.7"]
+documentos = ["rapidocr-onnxruntime>=1.3", "pdfplumber>=0.11", "pypdfium2>=4.0"]
+dev = ["fpdf2>=2.7", "pytest>=8.0", "pillow>=10.0"]
+completo = ["mcp>=2.0", "fastapi>=0.110", "uvicorn>=0.29"]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+
+[project.scripts]
+nlr = "nlr.cli:main"
+agente = "nlr.cli:main"
+
+
+[tool.setuptools.package-data]
+nlr = ["api/static/*", "api/static/vendor/*"]
+
+[tool.setuptools.packages.find]
+include = ["nlr*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "rede: precisa de internet",
+    "modelo_real: precisa de um servidor de modelos de verdade (AGENTE_TESTE_REAL=1)",
+]
